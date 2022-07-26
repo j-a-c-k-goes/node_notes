@@ -14,15 +14,20 @@ const welcome_module = require('./js/welcome_msg.js');
 // - - -  setup  - - -
 const title = { describe: 'title of note', demand: true, alias: 't'};
 const body = { describe: 'body of note', demand: true, alias: 'b'};
+const ping = {describe:'ip destination', demand: true, alias: 'p'}
 const argv = yargs
     .command('add', 'add a new note', { title, body } )
-    .command('list', 'list all notes')
+    .command('list', 'list all notes', {})
     .command('read', 'read a note', { title } )
-    .command('remove', 'remove a note', { title } ) 
-    .command('remove_all', 'remove all notes', {} )
-    .command('oldest', 'read least recent note')
-    .command('newest', 'read most recent note')
-    .command('commands', 'list application commands')
+    .command('remove', 'remove a note', { title } )
+    .command('burn', 'delete all notes ⚠️', {} )
+    .command('restore', 'restore notes from backup file', {})
+    .command('ping', 'send note to destination', { title, ping } )
+    .command('hash', 'hash current notes', {})
+    .command('backup', 'backup current notes',{})
+    .command('oldest', 'read least recent note', {})
+    .command('newest', 'read most recent note', {})
+    .command('commands', 'list application commands', {})
     .help()
     .argv; // command is argument vector from yargs module instead of built-in process.argv
 
@@ -31,6 +36,7 @@ const user = operating_system.userInfo(); // get user info
 welcome_module.welcome_message(user); // invoke welcome message
 
 // - - - switch statements for commands - - -
+
 switch (command) {
     case 'add':
         const note_added = notes_module.add_note(argv.title, argv.body);
@@ -57,7 +63,7 @@ switch (command) {
     case 'oldest': 
         const oldest_note = notes_module.oldest_note();
         if (oldest_note){
-            console.log(`\n(oldest)\n\n"${oldest_note.title.toUpperCase()}"\n\n${oldest_note.body}\n`);
+            console.log(`\n(least recent)\t"${oldest_note.title.toUpperCase()}"\n${oldest_note.body}\n`);
         } else {
             console.log(`•••• no recent notes exist`)
         }
@@ -65,7 +71,7 @@ switch (command) {
     case 'newest': 
         const recent_note = notes_module.recent_note();
         if (recent_note){
-            console.log(`\n(most recent)\n\n"${recent_note.title.toUpperCase()}"\n\n${recent_note.body}\n`);
+            console.log(`\n(most recent)\t"${recent_note.title.toUpperCase()}"\n${recent_note.body}\n`);
         } else {
             console.log(`•••• no recent notes exist`)
         }
@@ -77,23 +83,24 @@ switch (command) {
         `note "${argv.title}" not found`;
         console.log(message);
         break;
-    case 'remove_all':
-        console.log('•••• removing all notes');
-        // write prompt to proceed "are you sure you want to delete all notes? (y / n): "
-        // if prompt === "y": remove; else: do nothing ...
-        // const all_remvoved = notes.module.remove_all_notes();
+    case 'burn': 
+        const delete_all = notes_module.remove_all();
         break;
+    case 'restore': 
+        const restore_notes = notes_module.restore_notes('./.backup_of_notes.json');
+        break;
+    case 'hash': 
+        const notes_to_hash = notes_module.hash_notes();
+        break;
+    case 'backup': 
+        const backup_notes = notes_module.backup_notes();
+        break;
+    // case 'ping':
+    //     console.log('- - - sending ping with note to destination - - -');
     case 'commands':
         const show_commands = commands.show_commands();
         show_commands;
         break;
-    // - - - compile all notes as pdf or txt file - - -
-    //case 'pdf_all':
-        //console.log('•••• build slow and fast. preparing all notes for pdf.');
-        //const pdf_notes = notes_module.write_notes_to_pdf();
-        //break;
-    
-    // - - - compile a note as pdf or text file - - -
     default:
         const invalid_command = commands.command_invalid(command);
         invalid_command;

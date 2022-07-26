@@ -4,6 +4,16 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+		"start":"node app.js",
+		"add":"node app.js add --title --body",
+		"list":"node app.js list",
+		"read":"node app.js read --title",
+		"remove":"node app.js remove --title",
+		"burn":"node app.js burn",
+		"hash":"node app.js hash",
+		"oldest":"node app.js oldest",
+		"newest":"node app.js newest",
+		"help":"node app.js help",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "xyz",

@@ -5,5 +5,5 @@
 		{ "command": "remove", "desc": "remove a note", "flags": ["title"] },
 		{ "command": "remove_all", "desc": "remove all notes", "flags": [false] },
         { "command": "pdf_all", "desc": "all notes to pdf", "flags": [false] },
-		{ "command": "commands", "desc": "show available commands", "flags": [false] }
+		{ "command": "commands", "desc": "show available commands", "flags": [false] },
 ]
