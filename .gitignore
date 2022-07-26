@@ -4,7 +4,6 @@ src/notes/
 src/hashed_notes
 src/notes_data.json
 src/js/os_info.js
-src/js/
 node_modules/
 command_list.json
 .not_in_use.js
