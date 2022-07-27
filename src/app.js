@@ -16,6 +16,7 @@ const title = { describe: 'title of note', demand: true, alias: 't'};
 const body = { describe: 'body of note', demand: true, alias: 'b'};
 const ping = {describe:'ip destination', demand: true, alias: 'p'}
 const argv = yargs
+    .command('count', 'count notes saved', {})
     .command('add', 'add a new note', { title, body } )
     .command('list', 'list all notes', {})
     .command('read', 'read a note', { title } )
@@ -38,6 +39,10 @@ welcome_module.welcome_message(user); // invoke welcome message
 // - - - switch statements for commands - - -
 
 switch (command) {
+    case 'count':
+        const notes_to_count = notes_module.count_notes();
+        console.info(`there are ${notes_to_count} notes`);
+        break;
     case 'add':
         const note_added = notes_module.add_note(argv.title, argv.body);
         if (note_added) {
@@ -87,7 +92,7 @@ switch (command) {
         const delete_all = notes_module.remove_all();
         break;
     case 'restore': 
-        const restore_notes = notes_module.restore_notes('./.backup_of_notes.json');
+        const restore_notes = notes_module.restore_notes("backups/backup_0_6_2022");
         break;
     case 'hash': 
         const notes_to_hash = notes_module.hash_notes();

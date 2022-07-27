@@ -58,7 +58,17 @@ ${ log.length } characters
 	return 1;
 	}
 };
-
+// --- count the number of notes ---
+const count_notes = () => {
+	try {
+		const notes = fetch_notes();
+		console.info("getting the number of notes saved");
+		return notes.length;
+	} catch (error){
+		console.error(`an error has occured\n${error}`);
+		return 1;
+	}
+};
 // - - - create add note function - - 
 const add_note = (title, body) => {
 	try {
@@ -159,9 +169,8 @@ const remove_all = () => {
 // - - - restore notes from a backup - - -
 const restore_notes = (backup_file) => {
 	try{
-		const backup_path = backup_file;
-		console.log(`restoring notes from backup file "${backup_path}"`);
-		const notes_to_restore = fs.readFileSync(backup_path); 
+		console.log(`restoring notes from backup file "${backup_file}"`);
+		const notes_to_restore = fs.readFileSync(backup_file); 
 		const restored_notes = JSON.parse(notes_to_restore);
 		fs.writeFileSync(data_file, JSON.stringify(restored_notes, null, 2));
 		const notes = fetch_notes();
@@ -222,6 +231,7 @@ const backup_notes = () => {
 
 // - - - make exports  - - -
 module.exports = { 
+	count_notes,
 	add_note, 
 	list_notes, 
 	read_note, 
