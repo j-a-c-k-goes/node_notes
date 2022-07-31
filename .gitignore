@@ -9,3 +9,5 @@ command_list.json
 .not_in_use.js
 .backup_of_notes.json
 .DS_Store
+src/js.sublime-workspace
+notes_data.json

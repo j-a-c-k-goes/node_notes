@@ -186,7 +186,7 @@ const hash_notes = () => {
 	try {
 		const notes = fetch_notes();
 		let hashed_notes = [];
-		const hash_directory = './hashed_notes'; 
+		const hash_directory = './src/hashed_notes'; 
 		console.log(`preparing to hash ${notes.length} notes.`);
 		notes.forEach((note) =>{
 			const title = crypto.createHash('sha256', note)
@@ -213,10 +213,10 @@ const backup_notes = () => {
 		const date = new Date();
 		const date_ext = `${date.getDay()}_${date.getMonth()}_${date.getFullYear()}`;
 		console.log(`preparing to backup ${notes.length} notes`);
-		const backup_dir = './backups';
+		const backup_dir = './src/backups';
 		if (fs.existsSync(backup_dir)){
 			console.log('path already exists, backing up notes here.');
-			fs.writeFileSync(`${backup_dir}/backup_${date_ext}`, JSON.stringify(notes, null, 2));
+			fs.writeFileSync(`${backup_dir}/backup_${date_ext}.json`, JSON.stringify(notes, null, 2));
 		} 
 		else {
 			fs.mkdirSync(backup_dir);
