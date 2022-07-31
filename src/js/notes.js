@@ -209,20 +209,23 @@ const hash_notes = () => {
 // - - - backup current notes - - -
 const backup_notes = () => {
 	try {
-		const notes = fetch_notes();
 		const date = new Date();
 		const date_ext = `${date.getDay()}_${date.getMonth()}_${date.getFullYear()}`;
-		console.log(`preparing to backup ${notes.length} notes`);
-		const backup_dir = './src/backups';
+		const notes_to_backup = fetch_notes();
+		console.info("determining backup directory");
+		const backup_dir = './backups';
 		if (fs.existsSync(backup_dir)){
+			console.log(`preparing to backup ${notes_to_backup.length} notes`);
 			console.log('path already exists, backing up notes here.');
-			fs.writeFileSync(`${backup_dir}/backup_${date_ext}.json`, JSON.stringify(notes, null, 2));
+			fs.writeFileSync(`${backup_dir}/backup_${date_ext}.json`, JSON.stringify(notes_to_backup, null, 2));
 		} 
 		else {
 			fs.mkdirSync(backup_dir);
-			fs.writeFileSync(`${backup_dir}/backup_${date_ext}`, JSON.stringify(notes, null, 2));
+			fs.writeFileSync(`${backup_dir}/backup_${date_ext}.json`, JSON.stringify(notes_to_backup, null, 2));
 		}
 		console.log(`notes as of ${date.toDateString()} backed up! `);
+		save_notes(notes_to_backup);
+		return notes_to_backup;
 	} catch (error) {
 		console.error(error);
 		return 1;
