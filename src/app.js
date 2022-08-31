@@ -32,9 +32,11 @@ const argv = yargs
     .help()
     .argv; // command is argument vector from yargs module instead of built-in process.argv
 
-const command = argv._[0]; // grab command from yargs, first item in array
+
 const user = operating_system.userInfo(); // get user info
+
 welcome_module.welcome_message(user); // invoke welcome message
+const command = argv._[0]; // grab command from yargs, first item in array    
 
 // - - - switch statements for commands - - -
 

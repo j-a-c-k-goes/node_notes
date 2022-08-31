@@ -1,0 +1,22 @@
+# number of notes
+
+    crossroads: implement as command or display in startup message? 
+
+    both achieve the same result yet:
+
+        • displaying in startup message eliminates adding (and rememebring) new command 
+        • this "new command" is not mission critical.
+
+    decision: implement as statement in startup message. 
+
+# stats
+
+    number of posts
+    longest post
+    shortest post
+    average post length
+    most used phrase
+    most occuring keywords
+    least used phrases
+    least occuring keywords
+    keywords

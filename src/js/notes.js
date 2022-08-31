@@ -234,6 +234,7 @@ const backup_notes = () => {
 
 // - - - make exports  - - -
 module.exports = { 
+	fetch_notes,
 	count_notes,
 	add_note, 
 	list_notes, 
