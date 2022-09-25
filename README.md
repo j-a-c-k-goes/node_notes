@@ -20,7 +20,7 @@ A Node.js based command-line application for compiling notes.
 * `npm run backup` (backup all notes)
 * `npm run oldest` (displays oldest note)
 * `npm run newest` (displays most recent note addition)
-* `npm run help` (view doucmentation)
+* `npm run help` (view documentation)
 
 ---
 
